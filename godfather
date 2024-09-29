@@ -2,17 +2,6 @@ local player = game.Players.LocalPlayer
 
 local whitelistedUserIds = {
     [5015794319] = true,
-    [2728898757] = true,
-    [2250562167] = true,
-    [5206446639] = true,
-    [10795521] = true,
-    [1811863979] = true,
-    [4554584510] = true,  
-    [5095992630] = true,
-    [418338806] = true,
-    [5839709628] = true,
-    [5336692720] = true,
-    [3962335069] = true
 }
 
 if whitelistedUserIds[player.UserId] then
