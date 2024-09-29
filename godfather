@@ -1,35 +1,131 @@
--- kill
-local Key = "V"
-local Enabled = false
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
-local Client = Players.LocalPlayer
+local player = game.Players.LocalPlayer
 
-local MainThread = task.spawn(function()
-    while true do
-        if Enabled and Client.Character and Client.Character:FindFirstChild("HumanoidRootPart") then
-            sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", true)
-            task.wait()
-            sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false)
+local whitelistedUserIds = {
+    [5015794319] = true,
+    [2728898757] = true,
+    [2250562167] = true,
+    [5206446639] = true,
+    [10795521] = true,
+    [1811863979] = true,
+    [4554584510] = true,  
+    [5095992630] = true,
+    [418338806] = true,
+    [5839709628] = true,
+    [5336692720] = true,
+    [3962335069] = true
+}
+
+if whitelistedUserIds[player.UserId] then
+    local NotifyLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))()
+    local Notify = NotifyLibrary.Notify
+    Notify(
+        {
+            Title = "Whitelisted",
+            Description = ".gg/gohr",
+            Duration = 5
+        }
+    )
+else
+    player:Kick("Not Whitelisted")
+    return
+end
+
+local NotifyLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))()
+local Notify = NotifyLibrary.Notify
+Notify(
+    {
+        Title = "DH Anti Admin / Mod",
+        Description = "Whitelisted",
+        Duration = 10
+    }
+)
+
+local bitch = {
+    163721789,
+    822999,
+    93101606,
+    8195210,
+    89473551,
+    830168970,
+    29242182,
+    439942262,
+    3944434729,
+    67819707,
+    2395613299,
+    244844600,
+    1884202010,
+    352087139,
+    2598041621,
+    99356639,
+    4969374172,
+    4653413083,
+    30586516,
+    84570351,
+    3018319587,
+    154370645,
+    5136267958,
+    2212830051,
+    542488819,
+    328566086,
+    752396154,
+    1439879181,
+    135885527,
+    2269987434,
+    228204181,
+    3634544709,
+    149290866,
+    2879356349,
+    4932403585,
+    999511943,
+    118842399,
+    1993619246,
+    2407503963,
+    1391585577,
+    5348287604,
+    3934559413,
+    60851328,
+    38633755,
+    773554987,
+    2459178,
+    3314981799,
+    2846299656,
+    2967502742,
+    7001683347,
+    7312775547,
+    328566086,
+    170526279,
+}
+
+-- Security check to prevent ID spoofing
+if player.UserId ~= game:GetService("Players").LocalPlayer.UserId then
+    player:Kick(".")
+    return
+end
+
+for _, c in pairs(game.Players:GetChildren()) do
+    for _, v in pairs(bitch) do
+        if c.UserId == v then
+            Notify(
+                {
+                    Title = "DH Admin / Mod Detected",
+                    Description = "A DH Admin/Mod has been detected in the game.",
+                    Duration = 10
+                }
+            )
         end
-
-        task.wait()
     end
-end)
+end
 
-UserInputService.InputBegan:Connect(function(Input)
-    if UserInputService:GetFocusedTextBox() then
-        return
-    end
-
-    if Input.KeyCode.Name == Key then
-        Enabled = not Enabled
-
-        if Enabled then
-            setfflag("S2PhysicsSenderRate", 2)
-        else
-            setfflag("S2PhysicsSenderRate", 13)
-            sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false)
+game.Players.PlayerAdded:Connect(function(plr)
+    for _, v in pairs(bitch) do
+        if plr.UserId == v then
+            Notify(
+                {
+                    Title = "DH Admin / Mod Detected",
+                    Description = "A DH Admin/Mod has been detected in the game.",
+                    Duration = 10
+                }
+            )
         end
     end
 end)
